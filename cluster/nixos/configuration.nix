@@ -8,11 +8,11 @@
   imports =
     [
       # Include the results of the hardware scan.
-      (modulesPath + "/installer/scan/not-detected.nix")
+      ./hardware-configuration.nix
     ];
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -21,6 +21,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
   # networking.hostName = meta.hostname; # Define your hostname.
   networking.hostName = meta.hostname; # Define your hostname.
@@ -97,6 +98,7 @@
     hashedPassword = "$6$xMAzKowk9bsuqI9x$3PjBCGKMFFxVzjauvfx/Rcvdm.kKyXFBpJWNnPQwQgtVA0w/MYK6LGFPWon3SWNTh/Yqo4vtjqppiyTUanI6J/";
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZ+m9rz8YsMBHqovU8rmNoDYfZ3gEk4Fx9/yu087ebWdxaSghe98+ncu67CkopOmH5NeuCjqwxFxgFHkylY121VPM7Dv8Dk3om5mxlcWmWg8XeQJnz344VNp7MTWaYOe3rcK+KaO5ClpAFht9YkIopBNgPpfZDeuzhlawHqTF6ZNPapbExddndMPnAWnJ8m0//jpC1Mq1+P3V+0LL8sVIP+xpdxnVMOo2cJbCmFp+cxVNJPxnF6O7K0onvbvNTjDe7A7rx9X2rYnsCJ4VYv1hF08dkih7FniTrmeiLklEaUiVRCt9CkMIQ1qLD3ocgV4TmeD2lVCHpE3utB4iWQC4yO4y5cm+auecjikrGOLt8/siemTc7tEBCFePpdqq4o/pAdi7VqKE5vJQ4SytkbujeAyddiiJVgrAUmFafbH4fKeNCnJO/xbW26uXCHKfI9dTzhzNEb7NMpAZ4dJShRzWbwMjubr27CTVcr0V+4xfM5pGgLJc/O3v8AaXndnDlUcgpETrQ+ONxrlzoBJhq5fOAW1ShFW9A+V4pl4E5p/P4P/Vz0+D7KriXtK3Qcvm5ItSJD+R5NCjvHXLTN6mj/eg6xn47QFSCn0bU8BZyp41ObPzBan0jfqA7FFaMptuFAZYh8ad8JJJYNf1ypwbx/rSMViSaNjlX6GRE2JLdXh0Xiw== addison.jones3@gmail.com"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFJQa9K2nafW+10JrvxgCeMxsgtnDGLTkcwUyox0MyOf addison.jones3@gmail.com"
     ];
   };
 
